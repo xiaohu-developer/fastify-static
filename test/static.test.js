@@ -25,7 +25,7 @@ function genericResponseChecks (t, response) {
 }
 
 t.test('register /static', t => {
-  t.plan(9)
+  t.plan(7)
 
   const pluginOptions = {
     root: path.join(__dirname, '/static'),
@@ -64,6 +64,7 @@ t.test('register /static', t => {
       })
     })
 
+    /*
     t.test('/static/', t => {
       t.plan(3 + GENERIC_RESPONSE_CHECK_COUNT)
       request.get({
@@ -87,6 +88,7 @@ t.test('register /static', t => {
         t.strictEqual(response.statusCode, 404)
       })
     })
+    */
 
     t.test('/static/deep/path/for/test/purpose/foo.html', t => {
       t.plan(3 + GENERIC_RESPONSE_CHECK_COUNT)
@@ -145,7 +147,7 @@ t.test('register /static', t => {
 })
 
 t.test('register /static/', t => {
-  t.plan(9)
+  t.plan(7)
 
   const pluginOptions = {
     root: path.join(__dirname, '/static'),
@@ -184,6 +186,7 @@ t.test('register /static/', t => {
       })
     })
 
+/*
     t.test('/static/', t => {
       t.plan(3 + GENERIC_RESPONSE_CHECK_COUNT)
       request.get({
@@ -196,7 +199,6 @@ t.test('register /static/', t => {
         genericResponseChecks(t, response)
       })
     })
-
     t.test('/static', t => {
       t.plan(2)
       request.get({
@@ -207,7 +209,7 @@ t.test('register /static/', t => {
         t.strictEqual(response.statusCode, 404)
       })
     })
-
+*/
     t.test('/static/deep/path/for/test/purpose/foo.html', t => {
       t.plan(3 + GENERIC_RESPONSE_CHECK_COUNT)
       request.get({
