@@ -4,7 +4,7 @@ Plugin for serving static file
 
 ## What does this forked version changed
 - scan the folder and register each file separately. (Instead of `{prefix}/*`)
-- let system 404 handler handle the ** NOT FOUND ** situation
+- let system 404 handler handle the **NOT FOUND** situation
 
 ## Install
 
