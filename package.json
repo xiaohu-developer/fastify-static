@@ -1,6 +1,6 @@
 {
   "name": "fastify-static-xh",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Plugin for serving static file as fast as possible Edit",
   "main": "index.js",
   "scripts": {
@@ -12,25 +12,26 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/fastify/fastify-static.git"
+    "url": "https://github.com/xiaohu-developer/fastify-static"
   },
   "keywords": [
     "fastify",
     "static"
   ],
-  "author": "Tommaso Allevi - @allevo",
+  "author": "Tommaso Allevi - @allevo; BigMurry",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/fastify/fastify-static/issues"
+    "url": "https://github.com/xiaohu-developer/fastify-static"
   },
-  "homepage": "https://github.com/fastify/fastify-static",
+  "homepage": "https://github.com/xiaohu-developer/fastify-static",
   "dependencies": {
     "fastify-plugin": "^0.1.0",
+    "glob": "^7.1.2",
     "send": "^0.15.4"
   },
   "devDependencies": {
-    "fastify": "^0.27.0",
     "coveralls": "^2.13.1",
+    "fastify": "^0.29.2",
     "pre-commit": "^1.2.2",
     "request": "^2.81.0",
     "snazzy": "^7.0.0",

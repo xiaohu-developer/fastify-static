@@ -1,6 +1,5 @@
 'use strict'
 
-const path = require('path')
 const fs = require('fs')
 
 const t = require('tap')
@@ -12,9 +11,6 @@ const indexContent = fs.readFileSync('./test/static/index.html').toString('utf8'
 const deepContent = fs.readFileSync('./test/static/deep/path/for/test/purpose/foo.html').toString('utf8')
 const innerIndex = fs.readFileSync('./test/static/deep/path/for/test/index.html').toString('utf8')
 
-const body403 = fs.readFileSync('./static/403.html').toString('utf8')
-const body404 = fs.readFileSync('./static/404.html').toString('utf8')
-
 const GENERIC_RESPONSE_CHECK_COUNT = 5
 function genericResponseChecks (t, response) {
   t.ok(/text\/(html|css)/.test(response.headers['content-type']))
@@ -25,10 +21,10 @@ function genericResponseChecks (t, response) {
 }
 
 t.test('register /static', t => {
-  t.plan(7)
+  t.plan(9)
 
   const pluginOptions = {
-    root: path.join(__dirname, '/static'),
+    root: './test/static',
     prefix: '/static'
   }
   const fastify = require('fastify')()
@@ -64,7 +60,6 @@ t.test('register /static', t => {
       })
     })
 
-    /*
     t.test('/static/', t => {
       t.plan(3 + GENERIC_RESPONSE_CHECK_COUNT)
       request.get({
@@ -88,7 +83,6 @@ t.test('register /static', t => {
         t.strictEqual(response.statusCode, 404)
       })
     })
-    */
 
     t.test('/static/deep/path/for/test/purpose/foo.html', t => {
       t.plan(3 + GENERIC_RESPONSE_CHECK_COUNT)
@@ -117,7 +111,7 @@ t.test('register /static', t => {
     })
 
     t.test('/static/this/path/doesnt/exist.html', t => {
-      t.plan(3 + GENERIC_RESPONSE_CHECK_COUNT)
+      t.plan(2)
       request.get({
         method: 'GET',
         uri: 'http://localhost:' + fastify.server.address().port + '/static/this/path/doesnt/exist.html',
@@ -125,32 +119,28 @@ t.test('register /static', t => {
       }, (err, response, body) => {
         t.error(err)
         t.strictEqual(response.statusCode, 404)
-        t.strictEqual(body, body404)
-        genericResponseChecks(t, response)
       })
     })
 
     t.test('/static/../index.js', t => {
-      t.plan(3 + GENERIC_RESPONSE_CHECK_COUNT)
+      t.plan(2)
       request.get({
         method: 'GET',
         uri: 'http://localhost:' + fastify.server.address().port + '/static/../index.js',
         followRedirect: false
       }, (err, response, body) => {
         t.error(err)
-        t.strictEqual(response.statusCode, 403)
-        t.strictEqual(body, body403)
-        genericResponseChecks(t, response)
+        t.strictEqual(response.statusCode, 404)
       })
     })
   })
 })
 
 t.test('register /static/', t => {
-  t.plan(7)
+  t.plan(9)
 
   const pluginOptions = {
-    root: path.join(__dirname, '/static'),
+    root: './test/static',
     prefix: '/static/'
   }
   const fastify = require('fastify')()
@@ -186,7 +176,6 @@ t.test('register /static/', t => {
       })
     })
 
-/*
     t.test('/static/', t => {
       t.plan(3 + GENERIC_RESPONSE_CHECK_COUNT)
       request.get({
@@ -209,7 +198,7 @@ t.test('register /static/', t => {
         t.strictEqual(response.statusCode, 404)
       })
     })
-*/
+
     t.test('/static/deep/path/for/test/purpose/foo.html', t => {
       t.plan(3 + GENERIC_RESPONSE_CHECK_COUNT)
       request.get({
@@ -237,7 +226,7 @@ t.test('register /static/', t => {
     })
 
     t.test('/static/this/path/doesnt/exist.html', t => {
-      t.plan(3 + GENERIC_RESPONSE_CHECK_COUNT)
+      t.plan(2)
       request.get({
         method: 'GET',
         uri: 'http://localhost:' + fastify.server.address().port + '/static/this/path/doesnt/exist.html',
@@ -245,22 +234,18 @@ t.test('register /static/', t => {
       }, (err, response, body) => {
         t.error(err)
         t.strictEqual(response.statusCode, 404)
-        t.strictEqual(body, body404)
-        genericResponseChecks(t, response)
       })
     })
 
     t.test('/static/../index.js', t => {
-      t.plan(3 + GENERIC_RESPONSE_CHECK_COUNT)
+      t.plan(2)
       request.get({
         method: 'GET',
         uri: 'http://localhost:' + fastify.server.address().port + '/static/../index.js',
         followRedirect: false
       }, (err, response, body) => {
         t.error(err)
-        t.strictEqual(response.statusCode, 403)
-        t.strictEqual(body, body403)
-        genericResponseChecks(t, response)
+        t.strictEqual(response.statusCode, 404)
       })
     })
   })
@@ -270,7 +255,7 @@ t.test('send', t => {
   t.plan(2)
 
   const pluginOptions = {
-    root: path.join(__dirname, '/static'),
+    root: './test/static',
     prefix: '/static'
   }
   const fastify = require('fastify')()

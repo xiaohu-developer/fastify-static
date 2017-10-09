@@ -2,9 +2,13 @@
 
 Plugin for serving static file
 
+## What does this forked version changed
+- scan the folder and register each file separately. (Instead of `{prefix}/*`)
+- let system 404 handler handle the ** NOT FOUND ** situation
+
 ## Install
 
-`npm install --save fastify-static`
+`npm install --save fastify-static-xh`
 
 ## Usage
 
@@ -12,12 +16,9 @@ Plugin for serving static file
 const fastify = require('fastify')
 const path = require('path')
 
-fastify.register(require('fastify-static'), {
+fastify.register(require('fastify-static-xh'), {
   root: path.join(__dirname, 'public'),
   prefix: '/public/' // optional: default '/'
-  page404Path: path.join(__dirname, 'public', '404.html'), // optional
-  page403Path: path.join(__dirname, 'public', '403.html'), // optional
-  page500Path: path.join(__dirname, 'public', '500.html')  // optional
 })
 
 fastify.get('/another/path', function (req, reply) {
